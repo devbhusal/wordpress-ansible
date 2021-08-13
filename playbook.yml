@@ -36,6 +36,13 @@
     loop: "{{ php_modules }}"
 
 
+  # start mysql service
+  - name: starting mysql server
+    service:
+      name: mysqld
+      state: started
+
+
   # mysql configuration  
   # seeting rrot password
   - name: Set the root password
@@ -99,7 +106,7 @@
 
    # apache and mysqld server started
   - name: services started   
-    service: name={{ item }} state=started  
+    service: name={{ item }} state=restarted 
     loop: [ 'httpd', 'mysqld']
      
 
