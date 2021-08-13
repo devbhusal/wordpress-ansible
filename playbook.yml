@@ -19,6 +19,6 @@
     loop: [ 'httpd', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql']
 
    # apache server started
-  - name:    services started   
+  - name: services started   
     service: name={{ item }} state= started  
     loop: [ 'httpd', 'mysqld']  
