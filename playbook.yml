@@ -16,11 +16,13 @@
   # install LAMP server
   - name: install LAMP server
     yum: name={{ item }} state=latest
-    loop: [ 'httpd', 'mysql-server', 'php', 'php-mysql']
+    loop: [ 'httpd', 'mysql-server', 'php']
 
-   # apache server started
+   # apache and mysqld server started
   - name: services started   
     service:
-      name: httpd
+      name: 
+      - httpd
+      - mysqld
       state: started  
      
