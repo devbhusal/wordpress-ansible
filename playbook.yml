@@ -10,14 +10,16 @@
       name: '*'
       state: latest
 
-  # install apache server
-  - name: install apache server
+  # install LAMP server
+  - name: install LAMP server
     yum:
-      name: httpd
+      name: {{ item }}
       state: latest
+    loop: [ 'httpd', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql']
 
    # apache server started
   - name:       
     service:
-      name: httpd
+      name: {{ item }}
       state: started  
+    loop: [ 'httpd', 'mysqld']  
