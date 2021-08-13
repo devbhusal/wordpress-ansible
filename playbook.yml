@@ -20,9 +20,6 @@
 
    # apache and mysqld server started
   - name: services started   
-    service:
-      name: 
-      - httpd
-      - mysqld
-      state: started  
+    service: name={{ item }} state=started  
+    loop: [ 'httpd', 'mysqld']
      
