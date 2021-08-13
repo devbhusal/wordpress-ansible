@@ -18,8 +18,76 @@
     yum: name={{ item }} state=latest
     loop: [ 'httpd', 'mysql-server', 'php']
 
+  # install php extension
+  - name: install php extensions
+    yum: name={{ item }} state=latest
+    loop: "{{ php_modules }}"
+
+
+  # mysql configuration  
+  # seeting rrot password
+  - name: Set the root password
+    mysql_user:
+      name: root
+      password: "{{ mysql_root_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Remove all anonymous user accounts
+    mysql_user:
+      name: ''
+      host_all: yes
+      state: absent
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+
+
+  - name: Remove the MySQL test database
+    mysql_db:
+      name: test
+      state: absent
+      login_user: root
+      login_password: "{{ mysql_root_password }}"      
+
+
+  - name: Create wordpress data base
+    mysql_db:
+      name: "{{ mysql_db }}"
+      state: present
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+
+  - name: Create user for wordpress
+    mysql_user:
+      name: "{{ mysql_user }}"    
+      state: present
+      password: "{{ mysql_password }}"
+      priv: "{{ mysql_db }}.*:ALL"
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+            
+  # wordpress download and install
+  - name: Wordpress download and unpacking
+    unarchive:
+      src: https://wordpress.org/latest.tar.gz
+      dest: "/var/www/html"
+      remote_src: yes
+
+  - name: Set permissions for directories
+    shell: "/usr/bin/find /var/www/html/ -type d -exec chmod 750 {} \\;"
+    
+
+  - name: Set permissions for files
+    shell: "/usr/bin/find /var/www/html/ -type f -exec chmod 640 {} \\;"
+    
+  - name: Set up wp-config
+    template:
+      src: "files/wp-config.php.j2"
+      dest: "/var/www/html/wp-config.php"
+        
+
    # apache and mysqld server started
   - name: services started   
     service: name={{ item }} state=started  
     loop: [ 'httpd', 'mysqld']
      
+
