@@ -15,7 +15,9 @@
 
   # install LAMP server
   - name: install LAMP server
-    yum: name={{ item }}  state=latest
+    yum:
+      name: {{ item }} 
+      state: latest
     loop: [ 'httpd', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql']
 
    # apache server started
