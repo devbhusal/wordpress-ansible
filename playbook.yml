@@ -1,0 +1,23 @@
+---
+- name: Install wordpress in new server
+  hosts: webservers
+  become: yes
+  tasks:
+  
+  # update yum repo
+  - name: Yum updated
+    yum:
+      name: '*'
+      state: latest
+
+  # install apache server
+  - name: install apache server
+    yum:
+      name: httpd
+      state: latest
+
+   # apache server started
+  - name:       
+    service:
+      name: httpd
+      state: started  
