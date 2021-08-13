@@ -2,6 +2,9 @@
 - name: Install wordpress in new server
   hosts: webservers
   become: yes
+  vars_files:
+    - vars/default.yml
+    
   tasks:
   
   # update yum repo
@@ -12,14 +15,10 @@
 
   # install LAMP server
   - name: install LAMP server
-    yum:
-      name={{ item }}
-      state: latest
+    yum:name={{ item }} state: latest
     loop: [ 'httpd', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql']
 
    # apache server started
   - name:       
-    service:
-      name={{ item }}
-      state: started  
+    service:name={{ item }} state: started  
     loop: [ 'httpd', 'mysqld']  
