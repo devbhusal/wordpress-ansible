@@ -20,5 +20,7 @@
 
    # apache server started
   - name: services started   
-    service: name={{ item }} state= started  
-    loop: [ 'httpd', 'mysqld']  
+    service:
+      name: httpd
+      state: started  
+     
