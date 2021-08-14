@@ -61,10 +61,10 @@
         login_user: 'root'
         name: 'root'
         password: '{{ mysql_root_password }}'
-        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_unix_socket: /var/run/mysqld/mysqld.pid
         state: present
         priv: "*.*:ALL,GRANT"
-        check_implicit_admin: true
+        #check_implicit_admin: true
 
   - name: Remove all anonymous user accounts
     mysql_user:
