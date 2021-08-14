@@ -11,7 +11,7 @@
   - name: Yum updated
     yum:
       name: '*'
-      state: installed
+      state: latest
 
   - name: python 3.9 installation
     yum:
