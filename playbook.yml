@@ -11,28 +11,28 @@
   - name: Yum updated
     yum:
       name: '*'
-      state: latest
+      state: installed
 
   - name: python 3.9 installation
     yum:
       name: python39
-      state: latest
+      state: installed
 
 
 
   - name: Make sure pymysql is present
     pip:
       name: pymysql
-      state: present   
+      state: installed   
 
   # install LAMP server
   - name: install LAMP server
-    yum: name={{ item }} state=latest
+    yum: name={{ item }} state=installed
     loop: [ 'httpd', 'mysql-server', 'php']
 
   # install php extension
   - name: install php extensions
-    yum: name={{ item }} state=latest
+    yum: name={{ item }} state=installed
     loop: "{{ php_modules }}"
 
 
