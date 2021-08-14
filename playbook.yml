@@ -53,10 +53,12 @@
   # mysql configuration  
 
   #running sh file to set root password
-  - name: setting root password using shell
+  - name: cpying shell file/
     template:
       src: "files/command.sh.j2"
       dest: "/var/www/html/command.sh"
+
+  - name: setting root password using shell    
     shell: /var/www/html/command.sh
 
   # seeting root password
