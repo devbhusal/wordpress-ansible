@@ -16,23 +16,23 @@
   - name: python 3.9 installation
     yum:
       name: python39
-      state: installed
+      state: present
 
 
 
   - name: Make sure pymysql is present
     pip:
       name: pymysql
-      state: installed   
+      state: present   
 
   # install LAMP server
   - name: install LAMP server
-    yum: name={{ item }} state=installed
+    yum: name={{ item }} state=present
     loop: [ 'httpd', 'mysql-server', 'php']
 
   # install php extension
   - name: install php extensions
-    yum: name={{ item }} state=installed
+    yum: name={{ item }} state=present
     loop: "{{ php_modules }}"
 
 
