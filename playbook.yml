@@ -45,7 +45,7 @@
   - name: Create .my.cnf
     template:
       src: "files/client.my.cnf.j2"
-      dest: /etc/my.cnf
+      dest: /root/.my.cnf
       owner: root
       group: root
       mode: 0644
