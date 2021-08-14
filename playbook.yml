@@ -42,14 +42,21 @@
       name: mysqld
       state: started
 
+  - name: Create .my.cnf
+    template:
+      src: "files/client.my.cnf.j2"
+      dest: "/root/.my.cnf"
+      owner: root
+      group: root
+      mode: 0600
 
   # mysql configuration  
-  # seeting rrot password
+  # seeting root password
   - name: Set the root password
     mysql_user:
       name: root
       password: "{{ mysql_root_password }}"
-      login_unix_socket: /var/run/mysqld/mysqld.pid
+      login_unix_socket: /var/run/mysqld/mysqld.sock
 
   - name: Remove all anonymous user accounts
     mysql_user:
