@@ -45,10 +45,10 @@
   - name: Create .my.cnf
     template:
       src: "files/client.my.cnf.j2"
-      dest: "/etc/my.cnf"
+      dest: /etc/my.cnf
       owner: root
       group: root
-      mode: 0700
+      mode: 0644
 
   # mysql configuration  
 
