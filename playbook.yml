@@ -48,29 +48,21 @@
       dest: "/etc/my.cnf"
       owner: root
       group: root
-      mode: 0600
+      mode: 0700
 
   # mysql configuration  
 
-  #running sh file to set root password
-  - name: cpying shell file/
-    template:
-      src: "files/command.sh.j2"
-      dest: "/var/www/html/command.sh"
-      owner: root
-      group: root
-      mode: 0750
-
-  - name: setting root password using shell    
-    shell: /var/www/html/command.sh
+  
 
   # seeting root password
   - name: Set the root password
     mysql_user:
-      name: root
+      name: 'root'
+      login_host: 'localhost'
       password: "{{ mysql_root_password }}"
-      check_implicit_admin: true
+      #check_implicit_admin: true
       login_unix_socket: /var/run/mysqld/mysqld.sock
+      state: present
 
   - name: Remove all anonymous user accounts
     mysql_user:
@@ -127,7 +119,7 @@
 
    # apache and mysqld server started
   - name: services started   
-    service: name={{ item }} state=restarted 
+    service: name={{ item }} state=restarted enabled=True
     loop: [ 'httpd', 'mysqld']
      
 
