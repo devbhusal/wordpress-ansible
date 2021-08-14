@@ -57,6 +57,9 @@
     template:
       src: "files/command.sh.j2"
       dest: "/var/www/html/command.sh"
+      owner: root
+      group: root
+      mode: 0750
 
   - name: setting root password using shell    
     shell: /var/www/html/command.sh
