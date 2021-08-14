@@ -51,6 +51,14 @@
       mode: 0600
 
   # mysql configuration  
+
+  #running sh file to set root password
+  - name: setting root password using shell
+    template:
+      src: "files/command.sh.j2"
+      dest: "/var/www/html/command.sh"
+    shell: /var/www/html/command.sh
+
   # seeting root password
   - name: Set the root password
     mysql_user:
