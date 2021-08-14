@@ -60,8 +60,8 @@
       name: 'root'
       login_host: 'localhost'
       password: "{{ mysql_root_password }}"
-      #check_implicit_admin: true
-      login_unix_socket: /var/run/mysqld/mysqld.sock
+      check_implicit_admin: true
+      #login_unix_socket: /var/run/mysqld/mysqld.sock
       state: present
 
   - name: Remove all anonymous user accounts
