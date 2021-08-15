@@ -47,10 +47,10 @@
 
   # update yum repo
   - name:  resetting php 
-    shell: yum module reset php
+    shell: yum module reset php -y
     
   - name:  installing php from remi php
-    shell: yum module install php:remi-7.4
+    shell: yum module install php:remi-7.4 -y
 
   # install php extension
   - name: install php extensions
