@@ -31,6 +31,10 @@
     loop: [ 'httpd', 'mysql-server']
 
   #installing php using remi-php
+  - name: registering rpm key
+    rpm_key:
+      state: present
+      key: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
 
   - name: install epel
     yum: name={{ item }} state=present
