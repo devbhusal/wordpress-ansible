@@ -28,7 +28,24 @@
   # install LAMP server
   - name: install LAMP server
     yum: name={{ item }} state=present
-    loop: [ 'httpd', 'mysql-server', 'php']
+    loop: [ 'httpd', 'mysql-server']
+
+  #installing php using remi-php
+
+  - name: install epel
+    yum: name={{ item }} state=present
+    loop: "{{ remi_packages }}"
+    
+  - name: enabling php in repo
+    yum:
+    enablerepo: "remi,remi-php74"
+    state: present
+
+  # update yum repo
+  - name: Yum update to install php
+    yum:
+      name: '*'
+      state: latest
 
   # install php extension
   - name: install php extensions
@@ -42,13 +59,13 @@
       name: mysqld
       state: started
 
-  - name: Create .my.cnf
-    template:
-      src: "files/client.my.cnf.j2"
-      dest: /root/.my.cnf
-      owner: root
-      group: root
-      mode: 0644
+#  - name: Create .my.cnf
+#    template:
+#      src: "files/client.my.cnf.j2"
+#      dest: /root/.my.cnf
+#      owner: root
+#      group: root
+#      mode: 0644
 
   # mysql configuration  
 
@@ -98,20 +115,31 @@
       priv: "{{ mysql_db }}.*:ALL"
       login_user: root
       login_password: "{{ mysql_root_password }}"
+
+  - name: Set permissions for directories
+    shell: "/usr/bin/find /var/www/html/ -type d -exec chmod 2775 {} \\;"
+    
+
+  - name: Set permissions for files
+    shell: "/usr/bin/find /var/www/html/ -type f -exec chmod 0664 {} \\;"    
             
   # wordpress download and install
   - name: Wordpress download and unpacking
     unarchive:
       src: https://wordpress.org/latest.tar.gz
-      dest: "/var/www/html"
+      dest: "/var/www"
+      remote_src: yes
+  
+  - name: Copy wordpress files to /html folder
+    copy: 
+      src: "var/www/wordpress/*.*"
+      dest: "var/www/html"
+      use_regex: yes
       remote_src: yes
 
-  - name: Set permissions for directories
-    shell: "/usr/bin/find /var/www/html/ -type d -exec chmod 750 {} \\;"
-    
-
-  - name: Set permissions for files
-    shell: "/usr/bin/find /var/www/html/ -type f -exec chmod 640 {} \\;"
+  - name: Delete old wordpress files
+    shell: rm /var/www/wordpress - r 
+ 
     
   - name: Set up wp-config
     template:
