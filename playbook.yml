@@ -50,7 +50,7 @@
   #  shell: yum module install php:remi-7.4 -y
 
   - name: Installing php from remin php
-    yum: enablerepo=remi,remi-php56 state=latest
+    yum: enablerepo=remi,remi-php74 state=latest
 
   # install php extension
   - name: install php extensions
@@ -144,7 +144,7 @@
     shell: chown -R azureuser:apache /var/www/html
 
   - name: set permission (chmod 774)  
-    shell: chown -R ec2-user:apache /var/www/html
+    shell: chown -R azureuser:apache /var/www/html
 
    # apache and mysqld server started
   - name: services started   
