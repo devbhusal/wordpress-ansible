@@ -40,10 +40,7 @@
     yum: name={{ item }} state=present
     loop: "{{ remi_packages }}"
     
- # - name: enabling php in repo
- #   yum:
- #     enablerepo: "remi,remi-php74"
-  #    state: present
+ 
 
   # update yum repo
   - name:  resetting php 
@@ -64,13 +61,6 @@
       name: mysqld
       state: started
 
-#  - name: Create .my.cnf
-#    template:
-#      src: "files/client.my.cnf.j2"
-#      dest: /root/.my.cnf
-#      owner: root
-#      group: root
-#      mode: 0644
 
   # mysql configuration  
 
@@ -147,6 +137,11 @@
       src: "files/wp-config.php.j2"
       dest: "/var/www/html/wp-config.php"
         
+  - name: set permissions (changing ownership)
+    shell: chown -R azureuser:apache /var/www/html
+
+  - name: set permission (chmod 774)  
+    shell: chown -R ec2-user:apache /var/www/html
 
    # apache and mysqld server started
   - name: services started   

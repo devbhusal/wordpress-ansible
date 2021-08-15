@@ -1,8 +1,0 @@
-#!/bin/bash
-chown  azureuser:apache /var/log/mysqld.log
-temppassword=$(grep 'temporary password' /var/log/mysqld.log | grep -o ".\{12\}$")
-#and change back to mysql 
-chown  mysql:mysql /var/log/mysqld.log
-
-#change root password to db_root_password
- mysql -p$temppassword --connect-expired-password  -e "SET PASSWORD FOR root@localhost = PASSWORD('{{mysql_root_password}}');FLUSH PRIVILEGES;" 
