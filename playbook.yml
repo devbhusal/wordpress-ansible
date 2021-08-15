@@ -46,9 +46,11 @@
   #    state: present
 
   # update yum repo
-  - name:  installing php from remi repo
-    shell: name={{ item }}
-    loop: "{{ php_install }}"
+  - name:  resetting php 
+    shell: yum module reset php
+    
+  - name:  installing php from remi php
+    shell: yum module install php:remi-7.4
 
   # install php extension
   - name: install php extensions
