@@ -1,7 +1,7 @@
 ---
 #System Settings
 php_modules: [  'php-mysqlnd', 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip' ]
-
+php_install: ['dnf module reset php', 'dnf module install php:remi-7.4']
 #MySQL Settings
 mysql_root_password: "Password4root"
 mysql_db: "wordpress_db"
