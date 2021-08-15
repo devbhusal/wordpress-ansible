@@ -47,7 +47,7 @@
 
   # update yum repo
   - name:  installing php from remi repo
-    shell: {{ item }}
+    shell: name={{ item }}
     loop: "{{ php_install }}"
 
   # install php extension
