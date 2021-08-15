@@ -135,10 +135,10 @@
       remote_src: yes
   
   - name: Copy wordpress files to /html folder
-    shell: cp /var/www/wordpress/*.* /var/www/html - r
+    shell: cp /var/www/wordpress/*.* /var/www/html -r
 
   - name: Delete old wordpress files
-    shell: rm /var/www/wordpress - r 
+    shell: rm /var/www/wordpress -r 
  
     
   - name: Set up wp-config
