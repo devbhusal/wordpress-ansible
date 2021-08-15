@@ -38,8 +38,8 @@
     
   - name: enabling php in repo
     yum:
-    enablerepo: "remi,remi-php74"
-    state: present
+      enablerepo: "remi,remi-php74"
+      state: present
 
   # update yum repo
   - name: Yum update to install php
