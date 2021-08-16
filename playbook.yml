@@ -13,10 +13,10 @@
       name: '*'
       state: latest
 
-  - name: python 3.9 installation
-    yum:
-      name: python39
-      state: present
+  #- name: python 3.9 installation
+  #  yum:
+  #    name: python39
+  #   state: present
 
 
 
@@ -47,6 +47,8 @@
     shell: yum module reset php -y
     
   - name:  installing php from remi php
+  
+  
     shell: yum module install php:remi-7.4 -y
 
   
